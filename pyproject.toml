@@ -1,0 +1,36 @@
+[project]
+name = "simple-ai-agent-fastapi"
+version = "0.1.0"
+description = "A simple FastAPI service, scaffolded as a base for an AI agent API."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.19.0",
+    "asyncpg>=0.31.0",
+    "fastapi[standard]>=0.141.1",
+    "langchain-openai>=1.4.1",
+    "langchain-text-splitters>=1.1.2",
+    "langgraph>=1.2.10",
+    "pydantic-settings>=2.15.0",
+    "pypdf>=6.15.0",
+    "qdrant-client>=1.19.0",
+    "sqlalchemy[asyncio]>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.16.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
