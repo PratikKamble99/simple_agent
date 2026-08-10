@@ -59,7 +59,7 @@ jobs:
             - name: Extract score
               id: eval-score
               run: |
-                  SCORE=$(grep "Average Score:" reports.json | awk '{print $3}')
+                  SCORE=$(grep "average_score:" reports.json | awk '{print $3}')
 
                   echo "Evaluation score: $SCORE"
 
