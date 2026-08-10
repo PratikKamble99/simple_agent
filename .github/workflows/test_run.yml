@@ -9,7 +9,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         env:
-            BUCKET: ${{ secrets.DATABASE_URL }}
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
             UV_FROZEN: "1"
         steps:
             - uses: actions/checkout@v4
