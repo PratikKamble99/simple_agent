@@ -1,16 +1,18 @@
-from app.rag.agent import answer_question
 import asyncio
 import json
 from pathlib import Path
 
+from app.rag.agent import answer_question
+
+
 async def main():
     
     from deepeval.metrics import (
+        AnswerRelevancyMetric,
         ContextualPrecisionMetric,
         ContextualRecallMetric,
         ContextualRelevancyMetric,
-        AnswerRelevancyMetric, 
-        FaithfulnessMetric
+        FaithfulnessMetric,
     )
     from deepeval.test_case import LLMTestCase
     
@@ -36,7 +38,15 @@ async def main():
     test_case = LLMTestCase(
         input=question,
         actual_output=result["answer"],
-        expected_output="The Group Health Insurance benefit is available to permanent full-time employees from their very first day of joining the company. It provides medical coverage of up to ₹2,00,000. Employees can also include their spouse and up to two children under the policy, with the dependent premium deducted monthly from the employee's salary. Interns, contractual employees, employees on notice period, and those covered under the ESIC Act are excluded from this benefit.",
+        expected_output = (
+            "The Group Health Insurance benefit is available to permanent full-time "
+            "employees from their very first day of joining the company. "
+            "It provides medical coverage of up to ₹2,00,000. Employees can also "
+            "include their spouse and up to two children under the policy, "
+            "with the dependent premium deducted monthly from the employee's salary. "
+            "Interns, contractual employees, employees on notice period, "
+            "and those covered under the ESIC Act are excluded from this benefit."
+        ),
         retrieval_context=context
     )
     
