@@ -25,6 +25,6 @@ class AskResponse(BaseSchema):
     answer: str
     # Exposed so the decision node is observable from outside: without these
     # there is no way to tell whether retrieval actually ran.
-    used_rag: bool
-    decision_reason: str
+    # used_rag: bool
+    # decision_reason: str
     sources: list[Source] = []

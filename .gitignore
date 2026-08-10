@@ -5,13 +5,14 @@ build/
 dist/
 wheels/
 *.egg-info
-
+.deepeval
 # Virtual environments
 .venv
 
 # Environment variables
 .env
-
+.env.local
+.coverage
 # Tooling caches
 .pytest_cache/
 .ruff_cache/

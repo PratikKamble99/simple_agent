@@ -43,8 +43,8 @@ async def ask(payload: AskRequest, graph: GraphDep) -> AskResponse:
     chunks = state.get("chunks") or []
     return AskResponse(
         answer=state.get("answer", ""),
-        used_rag=bool(chunks),
-        decision_reason=state.get("decision_reason", ""),
+        # used_rag=bool(chunks),
+        # decision_reason=state.get("decision_reason", ""),
         sources=[
             Source(
                 document_id=chunk.document_id,

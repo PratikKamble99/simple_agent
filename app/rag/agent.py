@@ -68,8 +68,8 @@ class AgentState(TypedDict, total=False):
     question: str
     document_id: UUID | None
     top_k: int
-    needs_rag: bool
-    decision_reason: str
+    # needs_rag: bool
+    # decision_reason: str
     chunks: Annotated[list[RetrievedChunk], "retrieved context"]
     answer: str
 
@@ -139,14 +139,15 @@ def build_graph(
         return "retrieve" if state.get("needs_rag") else "generate"
 
     graph = StateGraph(AgentState)
-    graph.add_node("decide", decide)
+    # graph.add_node("decide", decide)
     graph.add_node("retrieve", retrieve)
     graph.add_node("generate", generate)
 
-    graph.add_edge(START, "decide")
-    graph.add_conditional_edges(
-        "decide", route, {"retrieve": "retrieve", "generate": "generate"}
-    )
+    # graph.add_edge(START, "decide")
+    graph.add_edge(START, "retrieve")
+    # graph.add_conditional_edges(
+    #     "decide", route, {"retrieve": "retrieve", "generate": "generate"}
+    # )
     graph.add_edge("retrieve", "generate")
     graph.add_edge("generate", END)
 
