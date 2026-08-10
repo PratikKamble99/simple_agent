@@ -51,8 +51,26 @@ jobs:
                   cache-dependency-glob: uv.lock
             - run: uv lock --check
             - run: uv sync --all-groups
-            - run: uv run -m evaluation.rag_eval
+            - name: Run Evaluation
+              run: uv run -m evaluation.rag_eval
 
+            - name: Extract score
+              id: eval-score
+              run: |
+                  SCORE=$(grep "Average Score:" eval.log | awk '{print $3}')
+
+                  echo "Evaluation score: $SCORE"
+
+                  echo "score=$SCORE" >> "$GITHUB_OUTPUT"
+
+    deploy:
+        needs: eval
+        if: ${{ needs.eval.outputs.score >= '0.80' }}
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy
+              run: echo "Deploying..."
     # deploy:
     #     needs: test
     #     if: github.ref == 'refs/heads/main'
