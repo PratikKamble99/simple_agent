@@ -1,0 +1,36 @@
+name: CI/CD
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        env:
+            BUCKET: ${{ secrets.DATABASE_URL }}
+            UV_FROZEN: "1"
+        steps:
+            - uses: actions/checkout@v4
+            - uses: astral-sh/setup-uv@v5
+              with:
+                  enable-cache: true
+                  cache-dependency-glob: uv.lock
+            # fails if pyproject.toml changed without re-locking
+            - run: uv lock --check
+
+            - run: uv sync --all-groups
+            - run: uv run ruff check .
+            - run: uv run alembic upgrade head
+            - run: uv run pytest -q --cov=app
+
+            # boot smoke test — catches import errors, bad settings, missing env
+            - name: App starts and serves /health
+              run: |
+                  uv run --no-sync uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+                  for i in {1..20}; do
+                    curl -fsS http://127.0.0.1:8000/health && exit 0
+                    sleep 1
+                  done
+                  exit 1
