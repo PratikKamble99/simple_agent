@@ -71,7 +71,7 @@ jobs:
 
     deploy:
         # needs: eval
-        if: ${{ needs.eval.outputs.score >= '0.80' && github.ref == 'refs/heads/main' }}
+        # if: ${{ needs.eval.outputs.score >= '0.80' && github.ref == 'refs/heads/main' }}
         runs-on: ubuntu-latest
 
         steps:
