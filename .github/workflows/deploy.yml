@@ -12,9 +12,9 @@ permissions:
 env:
     #   AWS_REGION: ap-south-1
     ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-#   ECS_CLUSTER: ai-agent-cluster
-#   ECS_SERVICE: ai-agent-service
-#   ECS_TASK_DEFINITION: ai-agent
+    #   ECS_CLUSTER: ai-agent-cluster
+    #   ECS_SERVICE: ai-agent-service
+    ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
 #   CONTAINER_NAME: fastapi-ai_agent
 
 jobs:
