@@ -1,9 +1,10 @@
 name: CI/CD
 
-on:
-    push:
-        branches: [main]
-    pull_request:
+# on:
+#     push:
+#         branches: [main]
+#     pull_request:
+on: workflow_dispatch
 
 jobs:
     test:
@@ -69,6 +70,7 @@ jobs:
     deploy:
         needs: eval
         if: ${{ needs.eval.outputs.score >= '0.80' }}
+        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
 
         steps:
