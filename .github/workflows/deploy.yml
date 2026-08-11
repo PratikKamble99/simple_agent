@@ -40,7 +40,6 @@ jobs:
     eval:
         needs: test
         runs-on: ubuntu-latest
-        if: false # skipped for testing
         outputs:
             score: ${{ steps.eval-score.outputs.score }}
         env:
@@ -48,7 +47,8 @@ jobs:
             QDRANT_URL: ${{ secrets.QDRANT_URL }}
             QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
         timeout-minutes: 30
-        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        if: false # skipped for testing
+        # if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
 
         steps:
             - uses: actions/checkout@v4
@@ -80,10 +80,10 @@ jobs:
 
             - name: Debug GitHub OIDC context
               run: |
-                echo "Repository: $GITHUB_REPOSITORY"
-                echo "Ref: $GITHUB_REF"
-                echo "Event: $GITHUB_EVENT_NAME"
-                echo "Actor: $GITHUB_ACTOR"
+                  echo "Repository: $GITHUB_REPOSITORY"
+                  echo "Ref: $GITHUB_REF"
+                  echo "Event: $GITHUB_EVENT_NAME"
+                  echo "Actor: $GITHUB_ACTOR"
 
             # AWS OIDC authentication
             - name: Configure AWS credentials
