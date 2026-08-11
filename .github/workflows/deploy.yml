@@ -9,9 +9,9 @@ permissions:
     id-token: write
 
 # take these from secret
-# env:
-#   AWS_REGION: ap-south-1
-#   ECR_REPOSITORY: ai-agent
+env:
+    #   AWS_REGION: ap-south-1
+    ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
 #   ECS_CLUSTER: ai-agent-cluster
 #   ECS_SERVICE: ai-agent-service
 #   ECS_TASK_DEFINITION: ai-agent
