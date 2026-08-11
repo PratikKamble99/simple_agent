@@ -38,6 +38,8 @@ jobs:
     eval:
         needs: test
         runs-on: ubuntu-latest
+        outputs:
+            score: ${{ steps.eval-score.outputs.score }}
         env:
             OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
             QDRANT_URL: ${{ secrets.QDRANT_URL }}
