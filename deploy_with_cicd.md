@@ -54,6 +54,9 @@
     1. Read Secrets Manager
     2. AmazonECSTaskExecutionRolePolicy
 8. ECS service - launch type, desire container count etc
+
+### below steps need when AWS authentication via OIDC.
+
 9. Create GitHub OIDC - Create an IAM OIDC provider for: Create an IAM OIDC provider for:
     - Go to: IAM → Identity providers → Add provider
     - select OpenID Connect
@@ -114,4 +117,20 @@
     }
     ```
 12. Add GitHub secret - add `AWS_DEPLOY_ROLE_ARN` - you will find this in github role which you created
+
+# instead AWS authentication via OIDC you can use AWS Access Keys in Configure AWS credentials step
+
+    ```
+     with:
+        role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    instead with AWS Access Keys as below
+
+    with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    ```
+
 13. Create GitHub Actions workflow
