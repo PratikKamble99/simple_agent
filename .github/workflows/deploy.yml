@@ -107,7 +107,7 @@ jobs:
                   echo "Building: $IMAGE_URI" 
                   docker build \
                    --target production \
-                   -t "$IMAGE_URI" \ 
+                   -t "$IMAGE_URI" \
                    . 
                    
                   docker push "$IMAGE_URI" 
