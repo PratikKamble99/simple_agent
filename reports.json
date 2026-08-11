@@ -1,0 +1,19 @@
+{
+  "question": "Explain the Group Health Insurance benefit offered by Dynamisch.",
+  "scores": {
+    "contextual_precision": 1.0,
+    "contextual_recall": 1.0,
+    "contextual_relevancy": 0.8888888888888888,
+    "answer_relevancy": 1.0,
+    "faithfulness": 1.0
+  },
+  "average_score": 0.9777777777777779,
+  "reasons": {
+    "contextual_precision": "The score is 1.00 because the first node provides a comprehensive overview of the Group Health Insurance benefits, directly addressing the input question. The second node, ranked lower, discusses eligibility criteria and exclusions, which does not pertain to the benefits themselves, making it irrelevant.",
+    "contextual_recall": "The score is 1.00 because all sentences in the expected output are directly supported by the information in the nodes of the retrieval context, specifically the details about eligibility, coverage limits, and exclusions.",
+    "contextual_relevancy": "The score is 0.89 because while the statement 'Exclusions:' is incomplete and does not provide relevant information, the relevant statements such as 'Group Health Insurance Benefits: First day from joining at no additional cost' and 'Coverage limit - Up to 2,00,000' clearly outline the benefits offered, contributing to a strong contextual connection.",
+    "answer_relevancy": "The score is 1.00 because the response directly addressed the request for information about the Group Health Insurance benefit offered by Dynamisch without any irrelevant statements.",
+    "faithfulness": "The score is 1.00 because there are no contradictions present, indicating that the actual output aligns perfectly with the retrieval context."
+  },
+  "answer": "The Group Health Insurance benefit offered by Dynamisch includes the following features:\n\n- **Coverage Start**: The insurance coverage begins on the first day of employment at no additional cost to the employee.\n- **Coverage Limit**: The coverage limit is up to 2,00,000.\n- **Dependent Coverage**: Employees can include their dependents (spouse and up to two children) in the policy, but the premium for these dependents will be deducted from the employee's salary monthly.\n\n**Eligibility Criteria**: This benefit is available to permanent full-time employees.\n\n**Exclusions**: Interns, part-time, temporary, contractual employees, and those on notice period are excluded from this benefit. \n\nThis information is derived from the context provided in blocks [1] and [2]."
+}

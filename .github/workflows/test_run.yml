@@ -56,13 +56,12 @@ jobs:
             - name: Run Evaluation
               run: uv run -m evaluation.rag_eval
 
-            - name: Extract score
+            - name: Get evaluation score
               id: eval-score
               run: |
-                  SCORE=$(grep "average_score:" reports.json | awk '{print $3}')
+                  SCORE=$(jq -r '.average_score' report.json)
 
                   echo "Evaluation score: $SCORE"
-
                   echo "score=$SCORE" >> "$GITHUB_OUTPUT"
 
     deploy:

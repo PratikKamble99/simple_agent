@@ -1,0 +1,25 @@
+# The build context is 230 MB without this file, and .venv is 228 MB of it.
+.venv/
+**/__pycache__/
+*.py[cod]
+
+# Secrets. Excluded so no COPY can bake them into a layer; real values are
+# supplied at runtime via env_file / environment.
+.env
+.env.*
+!.env.example
+
+.git/
+.gitignore
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+wheels/
+
+# Build inputs that would only invalidate cache layers.
+Dockerfile
+.dockerignore
+compose*.yaml
+compose*.yml

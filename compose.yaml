@@ -1,0 +1,25 @@
+# Development stack.
+# Production uses compose.prod.yaml.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+      # Keeps the image's Linux venv from being shadowed by the bind mount above.
+      - venv:/app/.venv
+
+    # No `command:` override — the development stage's CMD already runs with --reload.
+
+volumes:
+  venv:
