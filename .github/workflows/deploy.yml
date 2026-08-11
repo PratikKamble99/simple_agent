@@ -18,56 +18,56 @@ permissions:
 #   CONTAINER_NAME: fastapi-ai_agent
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        if: false # skipped for testing
-        env:
-            DATABASE_URL: ${{ secrets.DATABASE_URL }}
-            UV_FROZEN: "1"
-        steps:
-            - uses: actions/checkout@v4
-            - uses: astral-sh/setup-uv@v5
-              with:
-                  enable-cache: true
-                  cache-dependency-glob: uv.lock
-            - run: uv lock --check
+    # test:
+    #     runs-on: ubuntu-latest
+    #     # if: false # skipped for testing
+    #     env:
+    #         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    #         UV_FROZEN: "1"
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #         - uses: astral-sh/setup-uv@v5
+    #           with:
+    #               enable-cache: true
+    #               cache-dependency-glob: uv.lock
+    #         - run: uv lock --check
 
-            - run: uv sync --all-groups
-            - run: uv run ruff check .
-            - run: uv run alembic upgrade head
-            - run: uv run pytest -q --cov=app
+    #         - run: uv sync --all-groups
+    #         - run: uv run ruff check .
+    #         - run: uv run alembic upgrade head
+    #         - run: uv run pytest -q --cov=app
 
-    eval:
-        # needs: test
-        runs-on: ubuntu-latest
-        outputs:
-            score: ${{ steps.eval-score.outputs.score }}
-        env:
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-            QDRANT_URL: ${{ secrets.QDRANT_URL }}
-            QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
-        timeout-minutes: 30
-        if: false # skipped for testing
-        # if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    # eval:
+    #     needs: test
+    #     runs-on: ubuntu-latest
+    #     outputs:
+    #         score: ${{ steps.eval-score.outputs.score }}
+    #     env:
+    #         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    #         QDRANT_URL: ${{ secrets.QDRANT_URL }}
+    #         QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+    #     timeout-minutes: 30
+    #     if: false # skipped for testing
+    #     # if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
 
-        steps:
-            - uses: actions/checkout@v4
-            - uses: astral-sh/setup-uv@v5
-              with:
-                  enable-cache: true
-                  cache-dependency-glob: uv.lock
-            - run: uv lock --check
-            - run: uv sync --all-groups
-            - name: Run Evaluation
-              run: uv run -m evaluation.rag_eval
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #         - uses: astral-sh/setup-uv@v5
+    #           with:
+    #               enable-cache: true
+    #               cache-dependency-glob: uv.lock
+    #         - run: uv lock --check
+    #         - run: uv sync --all-groups
+    #         - name: Run Evaluation
+    #           run: uv run -m evaluation.rag_eval
 
-            - name: Get evaluation score
-              id: eval-score
-              run: |
-                  SCORE=$(jq -r '.average_score' reports.json)
+    #         - name: Get evaluation score
+    #           id: eval-score
+    #           run: |
+    #               SCORE=$(jq -r '.average_score' reports.json)
 
-                  echo "Evaluation score: $SCORE"
-                  echo "score=$SCORE" >> "$GITHUB_OUTPUT"
+    #               echo "Evaluation score: $SCORE"
+    #               echo "score=$SCORE" >> "$GITHUB_OUTPUT"
 
     deploy:
         # needs: eval
