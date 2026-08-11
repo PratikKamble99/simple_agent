@@ -59,7 +59,7 @@ jobs:
             - name: Get evaluation score
               id: eval-score
               run: |
-                  SCORE=$(jq -r '.average_score' report.json)
+                  SCORE=$(jq -r '.average_score' reports.json)
 
                   echo "Evaluation score: $SCORE"
                   echo "score=$SCORE" >> "$GITHUB_OUTPUT"
