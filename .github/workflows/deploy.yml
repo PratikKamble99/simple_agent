@@ -84,6 +84,8 @@ jobs:
                   echo "Ref: $GITHUB_REF"
                   echo "Event: $GITHUB_EVENT_NAME"
                   echo "Actor: $GITHUB_ACTOR"
+                  echo ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+                  echo ${{ secrets.AWS_REGION }}
 
             # AWS OIDC authentication
             - name: Configure AWS credentials
