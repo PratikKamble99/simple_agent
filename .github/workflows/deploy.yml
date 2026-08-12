@@ -1,8 +1,9 @@
 name: CI/CD
 
-on:
-    push:
-        branches: [main]
+# on:
+# push:
+#     branches: [main]
+on: workflow_dispatch
 
 permissions:
     contents: read
@@ -10,12 +11,8 @@ permissions:
 
 # take these from secret
 env:
-    #   AWS_REGION: ap-south-1
     ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-    #   ECS_CLUSTER: ai-agent-cluster
-    #   ECS_SERVICE: ai-agent-service
     ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
-#   CONTAINER_NAME: fastapi-ai_agent
 
 jobs:
     test:
@@ -36,6 +33,16 @@ jobs:
             - run: uv run ruff check .
             - run: uv run alembic upgrade head
             - run: uv run pytest -q --cov=app
+
+            # boot smoke test — catches import errors, bad settings, missing env
+            # - name: App starts and serves /health
+            #   run: |
+            #       uv run --no-sync uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+            #       for i in {1..20}; do
+            #         curl -fsS http://127.0.0.1:8000/health && exit 0
+            #         sleep 1
+            #       done
+            #       exit 1
 
     eval:
         needs: test
